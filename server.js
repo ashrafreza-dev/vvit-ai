@@ -9,6 +9,7 @@ import historyRoutes from "./routes/history.js";
 import chatRoutes from "./routes/chat.js";
 import notesRoutes from "./routes/notes.js";
 
+
 dotenv.config();
 
 const app = express();
