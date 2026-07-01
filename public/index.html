@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College AI Assistant</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>   
+
+<div class="container">
+
+    <div class="sidebar" id="sidebar">
+        <h2>🎓 College AI</h2>
+
+        <div class="profile">
+            <img 
+            id="profilePic"
+            src="/images/default-user.png">
+            <h3 id="username">Student</h3>
+    
+        </div>
+        
+        <button onclick="searchHistory()">
+        🔍 Search History
+        </button>
+        <button onclick="cgpa()">📊 CGPA Calculator</button>
+        <button onclick="attendance()">📅 Attendance</button>
+        <button onclick="notes()">📚 Notes</button>
+        <button onclick="logout()">🚪 Logout</button>
+    </div>
+
+    <div class="chat-area">
+
+        <div class="chat-header">
+
+    <img
+        src="/images/vvit-ai-logo.png"
+        alt="VVIT AI Logo"
+        class="logo">
+
+    <div>
+        <h2>VVIT AI</h2>
+        <p>Your Smart College Assistant</p>
+    </div>
+
+</div>
+
+        <div id="messages" class="messages">
+
+            <div class="bot">
+                Hello 👋
+                <br>
+                How can I help you today?
+            </div>
+
+        </div>
+
+        <div class="chat-input">
+
+            <input
+            type="text"
+            id="msg"
+            placeholder="Ask anything...">
+
+            <button onclick="sendMessage()">
+                Send
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Search History Modal -->
+
+<div id="historyModal" class="modal">
+
+<div class="modal-content">
+
+<h2>🔍 Search History</h2>
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search history..."
+onkeyup="filterHistory()">
+
+<div id="historyList"></div>
+
+<br>
+
+<button onclick="clearHistory()">
+🗑 Clear All History
+</button>
+
+<button onclick="closeHistory()">
+Close
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CGPA Modal -->
+<div id="cgpaModal" class="modal">
+
+  <div class="modal-content">
+
+    <span class="close" onclick="closeCGPA()">&times;</span>
+
+    <h2>📊 CGPA Calculator</h2>
+
+    <div id="subjects">
+
+      <div class="subject-row">
+        <input type="number" placeholder="Credits" class="credit">
+
+        <select class="grade">
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C</option>
+          <option value="0">F</option>
+        </select>
+      </div>
+
+    </div>
+
+    <button onclick="addSubject()">➕ Add Subject</button>
+    <button onclick="calculateCGPA()">Calculate</button>
+
+    <h3 id="cgpaResult"></h3>
+
+  </div>
+
+</div>
+
+<!-- Attendance Modal -->
+
+<div id="attendanceModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeAttendance()">&times;</span>
+
+        <h2>📅 Attendance Calculator</h2>
+
+        <input
+        type="number"
+        id="totalClasses"
+        placeholder="Total Classes">
+
+        <br><br>
+
+        <input
+        type="number"
+        id="attendedClasses"
+        placeholder="Attended Classes">
+
+        <br><br>
+
+        <button onclick="calculateAttendance()">
+            Calculate
+        </button>
+
+        <h3 id="attendanceResult"></h3>
+
+    </div>
+
+</div>
+
+<div id="notesModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close" onclick="closeNotes()">&times;</span>
+
+<h2>📚 Notes</h2>
+
+<select id="subject">
+
+<option>Java</option>
+
+<option>DBMS</option>
+
+<option>Operating System</option>
+
+<option>Computer Network</option>
+
+<option>AI</option>
+
+</select>
+
+<br><br>
+
+<input
+type="text"
+id="title"
+placeholder="Title">
+
+<br><br>
+
+<input
+type="file"
+id="pdf">
+
+<br><br>
+
+<button onclick="uploadNote()">
+
+Upload
+
+</button>
+
+<hr>
+
+<div id="notesList"></div>
+
+</div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+<button class="menu-btn" onclick="toggleSidebar()">
+☰
+</button> 
+</html>

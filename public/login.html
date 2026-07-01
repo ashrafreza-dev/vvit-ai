@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College AI Assistant - Login</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f172a,#1e3a8a);
+}
+
+.login-box{
+
+width:380px;
+background:white;
+padding:35px;
+border-radius:15px;
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+}
+
+h2{
+
+text-align:center;
+margin-bottom:25px;
+color:#1e3a8a;
+
+}
+
+input{
+
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+outline:none;
+
+}
+
+input:focus{
+
+border-color:#2563eb;
+
+}
+
+button{
+
+width:100%;
+padding:12px;
+margin-top:15px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:17px;
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#1d4ed8;
+
+}
+
+p{
+
+margin-top:20px;
+text-align:center;
+
+}
+
+a{
+
+color:#2563eb;
+text-decoration:none;
+font-weight:bold;
+
+}
+
+#error{
+
+margin-top:10px;
+text-align:center;
+color:red;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h2>🎓 College AI Assistant</h2>
+
+<input
+type="email"
+id="email"
+placeholder="Enter Email">
+
+<input
+type="password"
+id="password"
+placeholder="Enter Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<p id="error"></p>
+
+<p>
+Don't have an account?
+<a href="/register.html">Create Account</a>
+</p>
+
+</div>
+
+<script>
+
+// Already logged in
+if(localStorage.getItem("token")){
+    window.location.href="/";
+}
+
+async function login(){
+
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value.trim();
+
+if(!email || !password){
+
+document.getElementById("error").innerText=
+"Please fill all fields.";
+
+return;
+
+}
+
+try{
+
+const response=await fetch("/api/auth/login",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+email,
+password
+
+})
+
+});
+
+const data=await response.json();
+
+if(response.ok){
+
+localStorage.setItem("token",data.token);
+
+localStorage.setItem(
+"user",
+JSON.stringify(data.user)
+);
+
+alert("✅ Login Successful");
+
+window.location.href="/";
+
+}else{
+
+document.getElementById("error").innerText=
+data.message || data.error || "Login Failed";
+
+}
+
+}catch(error){
+
+console.log(error);
+
+document.getElementById("error").innerText=
+"Server Error";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
