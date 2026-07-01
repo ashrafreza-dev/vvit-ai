@@ -464,21 +464,17 @@ height:40px;
 
 }
 
+@media(max-width:480px){
+
 .chat-input{
-
-flex-direction:column;
-
+    flex-direction:row;
 }
 
 .chat-input button{
-
-width:100%;
-
+    width:80px;
 }
 
-.chat-input input{
 
-width:100%;
 
 }
 
