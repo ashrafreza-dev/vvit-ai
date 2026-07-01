@@ -3,7 +3,7 @@ dotenv.config();
 
 import express from "express";
 import Groq from "groq-sdk";
-import Chat from "../models/Chat.js";
+import Chat from "../models/chat.js";
 
 const router = express.Router();
 
