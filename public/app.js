@@ -1,3 +1,17 @@
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "/login.html";
+}
+
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user) {
+    window.location.href = "/login.html";
+}
+
+const userId = user._id;
+
 async function sendMessage() {
   const input = document.getElementById("msg");
   const messages = document.getElementById("messages");
@@ -21,12 +35,13 @@ async function sendMessage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        userId: "student001",
-        userMessage: text   // ✅ Backend ke according change kiya
-      }),
-    });
+    body: JSON.stringify({
+    userId,
+    userMessage: text
+    }),
 
+  });
+        
     const data = await response.json();
 
     if (!response.ok) {
@@ -57,11 +72,18 @@ async function sendMessage() {
   }
 }
 // Load chat history
-window.onload = loadHistory;
+window.onload = () => {
+    document.getElementById("messages").innerHTML = `
+        <div class="bot">
+            👋 Welcome ${user.name}!<br>
+            How can I help you today?
+        </div>
+    `;
+};
 
 async function loadHistory() {
   try {
-    const response = await fetch("/api/history/student001");
+    const response = await fetch("/api/history/"+ userId);
 
     if (!response.ok) return;
 
@@ -84,17 +106,12 @@ async function loadHistory() {
 }
 
 // ✅ User Name
-//photo
-const user = JSON.parse(localStorage.getItem("user"));
-
-if(user){
-
 document.getElementById("username").innerText=user.name;
 
 document.getElementById("profilePic").src=
 user.photo || "/images/default-user.png";
 
-}
+
 
 // ✅ Logout
 /*function logout() {
@@ -394,7 +411,7 @@ let allHistory=[];
 
 async function loadSearchHistory(){
 
-const response=await fetch("/api/history/student001");
+const response=await fetch("/api/history/"+ userId);
 
 const chats=await response.json();
 
@@ -472,7 +489,7 @@ async function clearHistory(){
 if(!confirm("Delete all history?"))
 return;
 
-await fetch("/api/history/clear/student001",{
+await fetch("/api/history/clear/" + userId,{
 
 method:"DELETE"
 
